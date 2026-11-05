@@ -1,0 +1,2 @@
+CREATE USER usrparcial2 WITH PASSWORD 'P4rc14L2-2026';
+CREATE DATABASE parcial2_cmgm OWNER usrparcial2;

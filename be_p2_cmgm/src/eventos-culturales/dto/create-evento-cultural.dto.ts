@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDateString, IsEnum, IsInt, IsNotEmpty, IsNumber, IsString, MaxLength, Min } from 'class-validator';
-import { EstadoEvento } from '../evento-cultural.entity';
+import { CategoriaEvento, EstadoEvento } from '../evento-cultural.entity';
 
 export class CreateEventoCulturalDto {
   @ApiProperty({ example: 1, description: 'Id del recinto donde se realiza' })
@@ -36,4 +36,8 @@ export class CreateEventoCulturalDto {
   @ApiProperty({ enum: EstadoEvento, example: EstadoEvento.Programado })
   @IsEnum(EstadoEvento)
   estado: EstadoEvento;
+
+  @ApiProperty({ enum: CategoriaEvento, example: CategoriaEvento.Concierto })
+  @IsEnum(CategoriaEvento)
+  categoria_evento: CategoriaEvento;
 }

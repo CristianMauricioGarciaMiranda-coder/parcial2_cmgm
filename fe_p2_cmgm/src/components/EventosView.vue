@@ -7,6 +7,7 @@ const recintos = ref([]);
 const error = ref('');
 const editandoId = ref(null);
 const estados = ['Programado', 'Agotado', 'Cancelado'];
+const categorias = ['concierto', 'Teatro', 'Danza', 'Festival'];
 const vacio = () => ({
   id_recinto: '',
   titulo: '',
@@ -15,6 +16,7 @@ const vacio = () => ({
   precio_entrada: null,
   fecha_evento: '',
   estado: 'Programado',
+  categoria_evento: 'concierto',
 });
 const form = ref(vacio());
 
@@ -54,6 +56,7 @@ const editar = (ev) => {
     precio_entrada: ev.precio_entrada,
     fecha_evento: ev.fecha_evento,
     estado: ev.estado,
+    categoria_evento: ev.categoria_evento,
   };
 };
 
@@ -96,6 +99,13 @@ onMounted(cargar);
           <option v-for="e in estados" :key="e" :value="e">{{ e }}</option>
         </select>
       </label>
+      <label>Categoria del evento
+        <select v-model="form.categoria_evento" required>
+          <option v-for="categoria in categorias" :key="categoria" :value="categoria">
+            {{ categoria }}
+          </option>
+        </select>
+      </label>
       <div>
         <button type="submit">{{ editandoId ? 'Actualizar' : 'Guardar' }}</button>
         <button v-if="editandoId" type="button" @click="cancelar">Cancelar</button>
@@ -107,7 +117,7 @@ onMounted(cargar);
       <thead>
         <tr>
           <th>Id</th><th>Recinto</th><th>Titulo</th><th>Artista</th><th>Min.</th>
-          <th>Precio</th><th>Fecha</th><th>Estado</th><th>Acciones</th>
+          <th>Precio</th><th>Fecha</th><th>Estado</th><th>Categoria</th><th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -120,6 +130,7 @@ onMounted(cargar);
           <td>{{ ev.precio_entrada }}</td>
           <td>{{ ev.fecha_evento }}</td>
           <td>{{ ev.estado }}</td>
+          <td>{{ ev.categoria_evento }}</td>
           <td class="acciones">
             <button @click="editar(ev)">Editar</button>
             <button @click="eliminar(ev.id)">Eliminar</button>

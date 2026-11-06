@@ -8,8 +8,16 @@ export enum EstadoEvento {
   Cancelado = 'Cancelado',
 }
 
+export enum CategoriaEvento {
+  Concierto = 'concierto',
+  Teatro = 'Teatro',
+  Danza = 'Danza',
+  Festival = 'Festival',
+}
+
 @Entity('eventos_culturales')
 @Check('"estado" IN (\'Programado\', \'Agotado\', \'Cancelado\')')
+@Check('"categoria_evento" IN (\'concierto\', \'Teatro\', \'Danza\', \'Festival\')')
 export class EventoCultural extends Auditoria {
   @PrimaryGeneratedColumn()
   id: number;
@@ -44,4 +52,7 @@ export class EventoCultural extends Auditoria {
 
   @Column({ type: 'varchar', length: 20, nullable: false })
   estado: EstadoEvento;
+
+  @Column({ type: 'varchar', length: 20, nullable: false, default: CategoriaEvento.Concierto })
+  categoria_evento: CategoriaEvento;
 }
